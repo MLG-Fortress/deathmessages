@@ -1,0 +1,22 @@
+name: ${project.artifactId}
+main: ${project.groupId}.${project.artifactId}
+version: ${project.version}
+description: ${project.artifactId} Bukkit Plugin
+author: BillyGalbreath
+
+commands:
+    deathmessages:
+        description: Reload the plugin.
+        usage: /<command> reload
+        aliases:
+        - deathmessage
+        - deathmsg
+        - dthmsgs
+        - dthmsg
+        - dmsgs
+        - dmsg
+
+permissions:
+    command.deathmessages:
+        description: Allows usage of /deathmessages
+        default: op

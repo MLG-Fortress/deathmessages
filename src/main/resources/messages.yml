@@ -1,0 +1,116 @@
+burn:
+    default:
+        - "{player} died of third degree burns"
+    combat:
+        - "{player} was burned by {attacker}"
+
+cactus:
+    default:
+        - "{player} was pricked to death"
+    combat:
+        - "{player} was pricked to death trying to escape {attacker}"
+
+creeper:
+- "{player} was blown up by creeper"
+
+default:
+- "{player} has died"
+
+dragon:
+- "{player} killed by enderdragon"
+
+drown:
+    default:
+        - "{player} drowned"
+    combat:
+        - "{player} drowned while hiding from {attacker}"
+
+explode:
+    default:
+        - "{player} was blown up"
+    combat:
+        - "{player} was blown up by {attacker}"
+
+fall:
+    default:
+        - "{player} fell to their death"
+    combat:
+        - "{player} was pushed to their death by {attacker}"
+
+falling-block:
+- "{block} fell on {player}'s head"
+
+fire:
+    default:
+        - "{player} burned to death"
+    combat:
+        - "{player} ran into fire trying to escape {attacker}"
+
+lava:
+    default:
+        - "{player} tried to swim in lava"
+    combat:
+        - "{player} was pushed into lava by {attacker}"
+
+lightning:
+    default:
+        - "{player} was struck by lightning"
+    combat:
+        - "{player} was struck by lightning while fighting {attacker}"
+
+magic:
+    default:
+        - "{player} was killed by {weapon} magic"
+    combat:
+        - "{player} was killed by {attacker} with {weapon} magic"
+
+magma:
+    default:
+        - "{player} stood on magma"
+    combat:
+        - "{player} died over magma fleeing from {attacker}"
+
+mob:
+- "{player} was killed by {attacker} with {weapon}"
+
+poison:
+    default:
+        - "{player} was poisoned with {weapon}"
+    combat:
+        - "{player} was poisoned by {attacker} with {weapon}"
+
+pvp:
+- "{player} was killed by {attacker} with {weapon}"
+
+shot:
+- "{player} was shot by {attacker} with {weapon}"
+
+starve:
+- "{player} starved to death"
+
+suffocate:
+- "{player} suffocated in a wall"
+
+suicide:
+- "{player} committed suicide"
+
+thorns:
+- "{player} was killed trying to hurt {attacker}"
+
+tnt:
+    default:
+        - "{player} was blown up by tnt"
+    combat:
+        - "{player} was blown up by {attacker} with tnt"
+
+void:
+    default:
+        - "{player} fell out of world"
+    combat:
+        - "{player} was pushed out of world by {attacker}"
+
+wither:
+- "{player} withered away"
+
+zombie:
+- "{player} killed by zombie"

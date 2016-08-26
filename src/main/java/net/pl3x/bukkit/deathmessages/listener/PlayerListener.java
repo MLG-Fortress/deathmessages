@@ -2,6 +2,7 @@ package net.pl3x.bukkit.deathmessages.listener;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.pl3x.bukkit.chatapi.ComponentSender;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
 import net.pl3x.bukkit.deathmessages.configuration.Messages;
@@ -182,7 +183,7 @@ public class PlayerListener implements Listener {
 
         components = expandedComponents.toArray(new BaseComponent[0]);
         for (Player online : Bukkit.getOnlinePlayers()) {
-            online.spigot().sendMessage(components);
+            ComponentSender.sendMessage(online, components);
         }
 
         event.setDeathMessage(null);

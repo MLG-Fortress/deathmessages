@@ -152,7 +152,7 @@ public class PlayerListener implements Listener {
     }
 
     private void setDeathMessage(PlayerDeathEvent event, String message) {
-        event.setDeathMessage(ChatColor.translateAlternateColorCodes('&', message));
+        event.setDeathMessage(ChatColor.translateAlternateColorCodes('&', "&3" + message));
     }
 
     private String getAttacker(LivingEntity attacker) {

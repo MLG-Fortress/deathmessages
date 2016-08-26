@@ -30,10 +30,10 @@ public class Messages extends YamlConfiguration {
         super();
         this.random = new Random();
         this.file = new File(DeathMessages.getPlugin().getDataFolder(), "messages.yml");
-        load();
+        reload();
     }
 
-    private void load() {
+    public void reload() {
         synchronized (saveLock) {
             try {
                 this.load(file);

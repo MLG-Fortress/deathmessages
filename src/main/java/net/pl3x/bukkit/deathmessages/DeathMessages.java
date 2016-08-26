@@ -2,6 +2,7 @@ package net.pl3x.bukkit.deathmessages;
 
 import net.pl3x.bukkit.deathmessages.command.CmdDeathMessages;
 import net.pl3x.bukkit.deathmessages.configuration.Config;
+import net.pl3x.bukkit.deathmessages.configuration.Messages;
 import net.pl3x.bukkit.deathmessages.listener.CombatListener;
 import net.pl3x.bukkit.deathmessages.listener.PlayerListener;
 import org.bukkit.Bukkit;
@@ -11,7 +12,10 @@ public class DeathMessages extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        saveResource("messages.yml", false);
+
         Config.reload();
+        Messages.getConfig().reload();
 
         Bukkit.getPluginManager().registerEvents(new CombatListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);

@@ -3,7 +3,6 @@ package net.pl3x.bukkit.deathmessages.listener;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.minecraft.server.v1_10_R1.NBTTagCompound;
 import net.pl3x.bukkit.chatapi.ComponentSender;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
@@ -11,8 +10,12 @@ import net.pl3x.bukkit.deathmessages.configuration.Messages;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Wither;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -202,8 +205,8 @@ public class PlayerListener implements Listener {
             return component;
         }
 
-        net.minecraft.server.v1_10_R1.ItemStack nms = CraftItemStack.asNMSCopy(item);
-        NBTTagCompound tag = new NBTTagCompound();
+        net.minecraft.server.v1_10_R1.ItemStack nms = org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_10_R1.NBTTagCompound tag = new net.minecraft.server.v1_10_R1.NBTTagCompound();
         nms.save(tag);
 
         ((TextComponent) component).setText(nms.getName());

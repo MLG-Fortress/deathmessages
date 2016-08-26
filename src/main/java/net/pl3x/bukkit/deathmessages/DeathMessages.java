@@ -20,7 +20,7 @@ public class DeathMessages extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CombatListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
 
-        getCommand("deathmessages").setExecutor(new CmdDeathMessages());
+        getCommand("deathmessages").setExecutor(new CmdDeathMessages(this));
 
         Logger.info(getName() + " v" + getDescription().getVersion() + " enabled!");
     }

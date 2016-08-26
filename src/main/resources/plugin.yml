@@ -10,11 +10,15 @@ commands:
         usage: /<command> reload
         aliases:
         - deathmessage
+        - deathmsgs
         - deathmsg
+        - deathm
         - dthmsgs
         - dthmsg
         - dmsgs
         - dmsg
+        - dms
+        - dm
 
 permissions:
     command.deathmessages:

@@ -1,7 +1,9 @@
 package net.pl3x.bukkit.deathmessages.listener;
 
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_10_R1.NBTTagCompound;
 import net.pl3x.bukkit.chatapi.ComponentSender;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
@@ -9,6 +11,7 @@ import net.pl3x.bukkit.deathmessages.configuration.Messages;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -152,11 +155,6 @@ public class PlayerListener implements Listener {
             message = Messages.getMessage("default");
         }
 
-        //setDeathMessage(event, message
-        //        .replace("{player}", player.getName())
-        //        .replace("{attacker}", getAttacker(attacker))
-        //        .replace("{weapon}", getWeapon(weapon)));
-
         BaseComponent[] components = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&e" + message));
 
         List<BaseComponent> expandedComponents = new ArrayList<>();
@@ -171,7 +169,9 @@ public class PlayerListener implements Listener {
                 } else if (part.toLowerCase().equals("{attacker}")) {
                     part = getAttacker(attacker);
                 } else if (part.toLowerCase().equals("{weapon}")) {
-                    part = getWeapon(weapon);
+                    expandedComponents.add(getWeapon(componentPart, weapon));
+                    expandedComponents.add(spaceComponent);
+                    continue;
                 }
 
                 ((TextComponent) componentPart).setText(part);
@@ -196,10 +196,20 @@ public class PlayerListener implements Listener {
         return WordUtils.capitalize(attacker.getType().name().toLowerCase());
     }
 
-    private String getWeapon(ItemStack item) {
+    private BaseComponent getWeapon(BaseComponent component, ItemStack item) {
         if (item == null) {
-            return "bare hands";
+            ((TextComponent) component).setText("bare hands");
+            return component;
         }
-        return item.getType().name().toLowerCase().replace("_", " ");
+
+        net.minecraft.server.v1_10_R1.ItemStack nms = CraftItemStack.asNMSCopy(item);
+        NBTTagCompound tag = new NBTTagCompound();
+        nms.save(tag);
+
+        ((TextComponent) component).setText(nms.getName());
+        BaseComponent[] tooltip = TextComponent.fromLegacyText(tag.toString());
+        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, tooltip));
+
+        return component;
     }
 }

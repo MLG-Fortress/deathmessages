@@ -1,9 +1,12 @@
 package net.pl3x.bukkit.deathmessages.listener;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
 import net.pl3x.bukkit.deathmessages.configuration.Messages;
 import org.apache.commons.lang.WordUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -11,6 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerListener implements Listener {
     @EventHandler
@@ -145,27 +151,54 @@ public class PlayerListener implements Listener {
             message = Messages.getMessage("default");
         }
 
-        setDeathMessage(event, message
-                .replace("{player}", player.getName())
-                .replace("{attacker}", getAttacker(attacker))
-                .replace("{weapon}", getWeapon(weapon)));
-    }
+        //setDeathMessage(event, message
+        //        .replace("{player}", player.getName())
+        //        .replace("{attacker}", getAttacker(attacker))
+        //        .replace("{weapon}", getWeapon(weapon)));
 
-    private void setDeathMessage(PlayerDeathEvent event, String message) {
-        event.setDeathMessage(ChatColor.translateAlternateColorCodes('&', "&3" + message));
+        BaseComponent[] components = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&e" + message));
+
+        List<BaseComponent> expandedComponents = new ArrayList<>();
+        BaseComponent spaceComponent = new TextComponent(" ");
+        for (BaseComponent component : components) {
+            String text = ((TextComponent) component).getText();
+            for (String part : text.split(" ")) {
+                BaseComponent componentPart = component.duplicate();
+
+                if (part.toLowerCase().equals("{player}")) {
+                    part = player.getName();
+                } else if (part.toLowerCase().equals("{attacker}")) {
+                    part = getAttacker(attacker);
+                } else if (part.toLowerCase().equals("{weapon}")) {
+                    part = getWeapon(weapon);
+                }
+
+                ((TextComponent) componentPart).setText(part);
+
+                expandedComponents.add(componentPart);
+                expandedComponents.add(spaceComponent);
+            }
+        }
+
+        components = expandedComponents.toArray(new BaseComponent[0]);
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            online.spigot().sendMessage(components);
+        }
+
+        event.setDeathMessage(null);
     }
 
     private String getAttacker(LivingEntity attacker) {
         if (attacker == null) {
-            return "";
+            return "something";
         }
         return WordUtils.capitalize(attacker.getType().name().toLowerCase());
     }
 
     private String getWeapon(ItemStack item) {
         if (item == null) {
-            return "";
+            return "bare hands";
         }
-        return "";
+        return item.getType().name().toLowerCase().replace("_", " ");
     }
 }

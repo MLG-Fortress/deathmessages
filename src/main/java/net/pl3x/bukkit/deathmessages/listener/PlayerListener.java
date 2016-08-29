@@ -4,6 +4,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pl3x.bukkit.chatapi.ComponentSender;
+import net.pl3x.bukkit.deathmessages.Logger;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
 import net.pl3x.bukkit.deathmessages.configuration.Messages;
@@ -22,10 +23,26 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerListener implements Listener {
+    private Class<?> nbtTagCompound;
+    private Method nmsCopy;
+
+    public PlayerListener() {
+        String version = Bukkit.getServer().getClass().toString().split("\\.")[3];
+        try {
+            nbtTagCompound = Class.forName("net.minecraft.server." + version + ".NBTTagCompound");
+            nmsCopy = Class.forName("org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack")
+                    .getDeclaredMethod("asNMSCopy", ItemStack.class);
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            Logger.warn("Something went wrong detecting server version. Weapon names will not display correctly..");
+            Logger.warn(e.getLocalizedMessage());
+        }
+    }
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
@@ -34,7 +51,8 @@ public class PlayerListener implements Listener {
         EntityDamageEvent.DamageCause lastCause = lastDamageEvent.getCause();
         Combat combat = CombatCache.getCache().getCombat(player);
 
-        String message = Messages.getMessage("default");
+        String world = player.getWorld().getName();
+        String message;
         LivingEntity attacker = null;
         ItemStack weapon = null;
 
@@ -44,118 +62,64 @@ public class PlayerListener implements Listener {
         }
 
         if (lastCause == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
-            if (combat != null) {
-                if (attacker instanceof Player) {
-                    message = Messages.getMessage("pvp");
-                } else if (attacker instanceof Creeper) {
-                    message = Messages.getMessage("creeper");
-                } else if (attacker instanceof EnderDragon) {
-                    message = Messages.getMessage("dragon");
-                } else if (attacker instanceof Wither) {
-                    message = Messages.getMessage("wither");
-                } else if (attacker instanceof Zombie) {
-                    message = Messages.getMessage("zombie");
-                } else {
-                    message = Messages.getMessage("mob");
-                }
+            if (attacker instanceof Player) {
+                message = Messages.getMessage("pvp", world);
+            } else if (attacker instanceof Creeper) {
+                message = Messages.getMessage("creeper", world);
+            } else if (attacker instanceof EnderDragon) {
+                message = Messages.getMessage("dragon", world);
+            } else if (attacker instanceof Wither) {
+                message = Messages.getMessage("wither", world);
+            } else if (attacker instanceof Zombie) {
+                message = Messages.getMessage("zombie", world);
+            } else {
+                message = Messages.getMessage("mob", world);
             }
         } else if (lastCause == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) {
-            if (combat == null) {
-                message = Messages.getMessage("explode.default");
-            } else {
-                message = Messages.getMessage("explode.combat");
-            }
+            message = Messages.getMessage("explode", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.PROJECTILE) {
-            message = Messages.getMessage("shot");
+            message = Messages.getMessage("shot", world);
         } else if (lastCause == EntityDamageEvent.DamageCause.STARVATION) {
-            message = Messages.getMessage("starve");
+            message = Messages.getMessage("starve", world);
         } else if (lastCause == EntityDamageEvent.DamageCause.FALL) {
-            if (combat == null) {
-                message = Messages.getMessage("fall.default");
-            } else {
-                message = Messages.getMessage("fall.combat");
-            }
+            message = Messages.getMessage("fall", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.DROWNING) {
-            if (combat == null) {
-                message = Messages.getMessage("drown.default");
-            } else {
-                message = Messages.getMessage("drown.combat");
-            }
+            message = Messages.getMessage("drown", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.LAVA) {
-            if (combat == null) {
-                message = Messages.getMessage("lava.default");
-            } else {
-                message = Messages.getMessage("lava.combat");
-            }
+            message = Messages.getMessage("lava", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.FIRE_TICK) {
-            if (combat == null) {
-                message = Messages.getMessage("burn.default");
-            } else {
-                message = Messages.getMessage("burn.combat");
-            }
+            message = Messages.getMessage("burn", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.FIRE) {
-            if (combat == null) {
-                message = Messages.getMessage("fire.default");
-            } else {
-                message = Messages.getMessage("fire.combat");
-            }
+            message = Messages.getMessage("fire", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.VOID) {
-            if (combat == null) {
-                message = Messages.getMessage("void.default");
-            } else {
-                message = Messages.getMessage("void.combat");
-            }
+            message = Messages.getMessage("void", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.POISON) {
-            if (combat == null) {
-                message = Messages.getMessage("poison.default");
-            } else {
-                message = Messages.getMessage("poison.combat");
-            }
+            message = Messages.getMessage("poison", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.MAGIC) {
-            if (combat == null) {
-                message = Messages.getMessage("magic.default");
-            } else {
-                message = Messages.getMessage("magic.combat");
-            }
+            message = Messages.getMessage("magic.default", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.SUFFOCATION) {
-            message = Messages.getMessage("suffocate");
+            message = Messages.getMessage("suffocate", world);
         } else if (lastCause == EntityDamageEvent.DamageCause.THORNS) {
-            message = Messages.getMessage("thorns");
+            message = Messages.getMessage("thorns", world);
         } else if (lastCause == EntityDamageEvent.DamageCause.SUICIDE) {
-            message = Messages.getMessage("suicide");
+            message = Messages.getMessage("suicide", world);
         } else if (lastCause == EntityDamageEvent.DamageCause.CONTACT) {
-            if (combat == null) {
-                message = Messages.getMessage("cactus.default");
-            } else {
-                message = Messages.getMessage("cactus.combat");
-            }
+            message = Messages.getMessage("cactus", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) {
-            if (combat == null) {
-                message = Messages.getMessage("explode.default");
-            } else {
-                message = Messages.getMessage("explode.combat");
-            }
+            message = Messages.getMessage("explode", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.DRAGON_BREATH) {
-            message = Messages.getMessage("dragon");
+            message = Messages.getMessage("dragon", world);
         } else if (lastCause == EntityDamageEvent.DamageCause.WITHER) {
-            message = Messages.getMessage("wither");
+            message = Messages.getMessage("wither", world);
         } else if (lastCause == EntityDamageEvent.DamageCause.FALLING_BLOCK) {
-            message = Messages.getMessage("falling-block");
+            message = Messages.getMessage("falling-block", world);
         } else if (lastCause == EntityDamageEvent.DamageCause.HOT_FLOOR) {
-            if (combat == null) {
-                message = Messages.getMessage("magma.default");
-            } else {
-                message = Messages.getMessage("magma.combat");
-            }
+            message = Messages.getMessage("magma", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.LIGHTNING) {
-            if (combat == null) {
-                message = Messages.getMessage("lightning.default");
-            } else {
-                message = Messages.getMessage("lightning.combat");
-            }
+            message = Messages.getMessage("lightning", world, combat != null);
         } else {
             // fallback to random default
-            message = Messages.getMessage("default");
+            message = Messages.getMessage("default", null);
         }
 
         BaseComponent[] components = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&e" + message));
@@ -205,13 +169,17 @@ public class PlayerListener implements Listener {
             return component;
         }
 
-        net.minecraft.server.v1_10_R1.ItemStack nms = org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack.asNMSCopy(item);
-        net.minecraft.server.v1_10_R1.NBTTagCompound tag = new net.minecraft.server.v1_10_R1.NBTTagCompound();
-        nms.save(tag);
+        try {
+            Object nms = nmsCopy.invoke(null, item);
+            Object tag = nbtTagCompound.newInstance();
+            nms.getClass().getDeclaredMethod("save", nbtTagCompound).invoke(nms, tag);
 
-        ((TextComponent) component).setText(nms.getName());
-        BaseComponent[] tooltip = TextComponent.fromLegacyText(tag.toString());
-        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, tooltip));
+            ((TextComponent) component).setText((String) nms.getClass()
+                    .getDeclaredMethod("getName").invoke(nms, (Object[]) null));
+            BaseComponent[] tooltip = TextComponent.fromLegacyText(tag.toString());
+            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, tooltip));
+        } catch (Exception ignore) {
+        }
 
         return component;
     }

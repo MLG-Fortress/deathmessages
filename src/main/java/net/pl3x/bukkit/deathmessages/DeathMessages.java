@@ -1,5 +1,6 @@
 package net.pl3x.bukkit.deathmessages;
 
+import net.pl3x.bukkit.deathmessages.combat.CombatCache;
 import net.pl3x.bukkit.deathmessages.command.CmdDeathMessages;
 import net.pl3x.bukkit.deathmessages.configuration.Config;
 import net.pl3x.bukkit.deathmessages.configuration.Messages;
@@ -27,6 +28,8 @@ public class DeathMessages extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        CombatCache.getCache().clear();
+
         Logger.info(getName() + " disabled.");
     }
 

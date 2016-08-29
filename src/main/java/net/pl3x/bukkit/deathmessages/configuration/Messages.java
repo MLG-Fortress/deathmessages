@@ -1,6 +1,7 @@
 package net.pl3x.bukkit.deathmessages.configuration;
 
 import net.pl3x.bukkit.deathmessages.DeathMessages;
+import net.pl3x.bukkit.deathmessages.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -18,8 +19,19 @@ public class Messages extends YamlConfiguration {
         return config;
     }
 
-    public static String getMessage(String key) {
-        return getConfig().getRandom(key);
+    public static String getMessage(String key, String world) {
+        return getMessage(key, world, false);
+    }
+
+    public static String getMessage(String key, String world, boolean combat) {
+        if (world != null && !world.isEmpty()) {
+            String msg = getConfig().getRandom(key + "." + world + (combat ? ".combat" : ".default"));
+            if (msg != null && !msg.isEmpty()) {
+                return msg;
+            }
+            Logger.debug("No message entry with key " + key + " for world " + world);
+        }
+        return getConfig().getRandom(key + (combat ? ".combat" : ".default"));
     }
 
     private final File file;
@@ -42,7 +54,7 @@ public class Messages extends YamlConfiguration {
         }
     }
 
-    public String getRandom(String key) {
+    private String getRandom(String key) {
         List<String> list = getStringList(key);
         if (list == null || list.isEmpty()) {
             return null;

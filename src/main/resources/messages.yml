@@ -1,116 +1,229 @@
-burn:
-    default:
-        - "{player} died of third degree burns"
-    combat:
-        - "{player} was burned by {attacker}"
-
-cactus:
-    default:
-        - "{player} was pricked to death"
-    combat:
-        - "{player} was pricked to death trying to escape {attacker}"
-
-creeper:
-- "{player} was blown up by creeper"
-
 default:
 - "{player} has died"
 
+burn:
+    default:
+    - "{player} died of third degree burns"
+    combat:
+    - "{player} was burned by {attacker}"
+    world_nether:
+        default:
+        - "{player} died of third degree burns in the nether"
+        combat:
+        - "{player} was burned by {attacker} in the nether"
+
+cactus:
+    default:
+    - "{player} was pricked to death"
+    combat:
+    - "{player} was pricked to death trying to escape {attacker}"
+    world_nether:
+        default:
+        - "{player} was pricked to death in the nether"
+        combat:
+        - "{player} was pricked to death trying to escape {attacker} in the nether"
+
+creeper:
+    default:
+    - "{player} was blown up by creeper"
+    world_nether:
+        default:
+        - "{player} was blown up by creeper in the nether"
+
 dragon:
-- "{player} killed by enderdragon"
+    default:
+    - "{player} killed by enderdragon"
+    world_nether:
+        default:
+        - "{player} killed by enderdragon in the nether"
 
 drown:
     default:
-        - "{player} drowned"
+    - "{player} drowned"
     combat:
-        - "{player} drowned while hiding from {attacker}"
+    - "{player} drowned while hiding from {attacker}"
+    world_nether:
+        default:
+        - "{player} drowned in the nether"
+        combat:
+        - "{player} drowned while hiding from {attacker} in the nether"
 
 explode:
     default:
-        - "{player} was blown up"
+    - "{player} was blown up"
     combat:
-        - "{player} was blown up by {attacker}"
+    - "{player} was blown up by {attacker}"
+    world_nether:
+        default:
+        - "{player} was blown up in the nether"
+        combat:
+        - "{player} was blown up by {attacker} in the nether"
 
 fall:
     default:
-        - "{player} fell to their death"
+    - "{player} fell to their death"
     combat:
-        - "{player} was pushed to their death by {attacker}"
+    - "{player} was pushed to their death by {attacker}"
+    world_nether:
+        default:
+        - "{player} fell to their death in the nether"
+        combat:
+        - "{player} was pushed to their death by {attacker} in the nether"
 
 falling-block:
-- "{block} fell on {player}'s head"
+    default:
+    - "{block} fell on {player}'s head"
+    world_nether:
+        default:
+        - "{block} fell on {player}'s head in the nether"
 
 fire:
     default:
-        - "{player} burned to death"
+    - "{player} burned to death"
     combat:
-        - "{player} ran into fire trying to escape {attacker}"
+    - "{player} ran into fire trying to escape {attacker}"
+    world_nether:
+        default:
+        - "{player} burned to death in the nether"
+        combat:
+        - "{player} ran into fire trying to escape {attacker} in the nether"
 
 lava:
     default:
-        - "{player} tried to swim in lava"
+    - "{player} tried to swim in lava"
     combat:
-        - "{player} was pushed into lava by {attacker}"
+    - "{player} was pushed into lava by {attacker}"
+    world_nether:
+        default:
+        - "{player} tried to swim in lava in the nether"
+        combat:
+        - "{player} was pushed into lava by {attacker} in the nether"
 
 lightning:
     default:
-        - "{player} was struck by lightning"
+    - "{player} was struck by lightning"
     combat:
-        - "{player} was struck by lightning while fighting {attacker}"
+    - "{player} was struck by lightning while fighting {attacker}"
+    world_nether:
+        default:
+        - "{player} was struck by lightning in the nether"
+        combat:
+        - "{player} was struck by lightning while fighting {attacker} in the nether"
 
 magic:
     default:
-        - "{player} was killed by {weapon} magic"
+    - "{player} was killed by {weapon} magic"
     combat:
-        - "{player} was killed by {attacker} with {weapon} magic"
+    - "{player} was killed by {attacker} with {weapon} magic"
+    world_nether:
+        default:
+        - "{player} was killed by {weapon} magic in the nether"
+        combat:
+        - "{player} was killed by {attacker} with {weapon} magic in the nether"
 
 magma:
     default:
-        - "{player} stood on magma"
+    - "{player} stood on magma"
     combat:
-        - "{player} died over magma fleeing from {attacker}"
+    - "{player} died over magma fleeing from {attacker}"
+    world_nether:
+        default:
+        - "{player} stood on magma in the nether"
+        combat:
+        - "{player} died over magma fleeing from {attacker} in the nether"
 
 mob:
-- "{player} was killed by {attacker} with {weapon}"
+    default:
+    - "{player} was killed by {attacker} with {weapon}"
+    world_nether:
+        default:
+        - "{player} was killed by {attacker} with {weapon} in the nether"
 
 poison:
     default:
-        - "{player} was poisoned with {weapon}"
+    - "{player} was poisoned with {weapon}"
     combat:
-        - "{player} was poisoned by {attacker} with {weapon}"
+    - "{player} was poisoned by {attacker} with {weapon}"
+    world_nether:
+        default:
+        - "{player} was poisoned with {weapon} in the nether"
+        combat:
+        - "{player} was poisoned by {attacker} with {weapon} in the nether"
 
 pvp:
-- "{player} was killed by {attacker} with {weapon}"
+    default:
+    - "{player} was killed by {attacker} with {weapon}"
+    world_nether:
+        default:
+        - "{player} was killed by {attacker} with {weapon} in the nether"
 
 shot:
-- "{player} was shot by {attacker} with {weapon}"
+    default:
+    - "{player} was shot by {attacker} with {weapon}"
+    world_nether:
+        default:
+        - "{player} was shot by {attacker} with {weapon} in the nether"
 
 starve:
-- "{player} starved to death"
+    default:
+    - "{player} starved to death"
+    world_nether:
+        default:
+        - "{player} starved to death in the nether"
 
 suffocate:
-- "{player} suffocated in a wall"
+    default:
+    - "{player} suffocated in a wall"
+    world_nether:
+        default:
+        - "{player} suffocated in a wall in the nether"
 
 suicide:
-- "{player} committed suicide"
+    default:
+    - "{player} committed suicide"
+    world_nether:
+        default:
+        - "{player} committed suicide in the nether"
 
 thorns:
-- "{player} was killed trying to hurt {attacker}"
+    default:
+    - "{player} was killed trying to hurt {attacker}"
+    world_nether:
+        default:
+        - "{player} was killed trying to hurt {attacker} in the nether"
 
 tnt:
     default:
-        - "{player} was blown up by tnt"
+    - "{player} was blown up by tnt"
     combat:
-        - "{player} was blown up by {attacker} with tnt"
+    - "{player} was blown up by {attacker} with tnt"
+    world_nether:
+        default:
+        - "{player} was blown up by tnt in the nether"
+        combat:
+        - "{player} was blown up by {attacker} with tnt in the nether"
 
 void:
     default:
-        - "{player} fell out of world"
+    - "{player} fell out of world"
     combat:
-        - "{player} was pushed out of world by {attacker}"
+    - "{player} was pushed out of world by {attacker}"
+    world_nether:
+        default:
+        - "{player} fell out of world in the nether"
+        combat:
+        - "{player} was pushed out of world by {attacker} in the nether"
 
 wither:
-- "{player} withered away"
+    default:
+    - "{player} withered away"
+    world_nether:
+        default:
+        - "{player} withered away in the nether"
 
 zombie:
-- "{player} killed by zombie"
+    default:
+    - "{player} killed by zombie"
+    world_nether:
+        default:
+        - "{player} killed by zombie in the nether"

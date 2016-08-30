@@ -42,18 +42,26 @@ public class CombatListener implements Listener {
             if (!(shooter instanceof LivingEntity)) {
                 return; // shot by non living (dispenser?)
             }
-            // start combat with shooter
+            // damaged player starts combat
             LivingEntity attacker = (LivingEntity) shooter;
             CombatCache.getCache().setCombat((Player) entity, attacker);
+            if (shooter instanceof Player) {
+                // player shooter starts combat
+                CombatCache.getCache().setCombat((Player) attacker, (Player) entity);
+            }
             return; // done
         }
 
         if (!(damager instanceof LivingEntity)) {
-            return;
+            return; // not damaged by living entity (void, falling block, lava, etc)
         }
 
-        // start combat with damager
-        LivingEntity attacker = (LivingEntity) damager;
-        CombatCache.getCache().setCombat((Player) entity, attacker);
+        // damaged player starts combat
+        CombatCache.getCache().setCombat((Player) entity, (LivingEntity) damager);
+
+        if (damager instanceof Player) {
+            // damager player starts combat
+            CombatCache.getCache().setCombat((Player) damager, (Player) entity);
+        }
     }
 }

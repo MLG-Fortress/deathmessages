@@ -11,6 +11,7 @@ import net.pl3x.bukkit.deathmessages.configuration.Messages;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.LivingEntity;
@@ -164,7 +165,7 @@ public class PlayerListener implements Listener {
     }
 
     private BaseComponent getWeapon(BaseComponent component, ItemStack item) {
-        if (item == null) {
+        if (item == null || item.getType() == Material.AIR) {
             ((TextComponent) component).setText("bare hands");
             return component;
         }

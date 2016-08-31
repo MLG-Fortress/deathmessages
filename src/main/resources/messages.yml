@@ -134,10 +134,10 @@ magma:
 
 mob:
     default:
-    - "{player} was killed by {attacker} with {weapon}"
+    - "{player} was killed by {attacker}"
     world_nether:
         default:
-        - "{player} was killed by {attacker} with {weapon} in the nether"
+        - "{player} was killed by {attacker} in the nether"
 
 poison:
     default:

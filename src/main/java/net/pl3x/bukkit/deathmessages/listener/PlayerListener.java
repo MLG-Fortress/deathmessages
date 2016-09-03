@@ -1,5 +1,8 @@
 package net.pl3x.bukkit.deathmessages.listener;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -8,7 +11,6 @@ import net.pl3x.bukkit.deathmessages.Logger;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
 import net.pl3x.bukkit.deathmessages.configuration.Messages;
-import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,10 +25,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerListener implements Listener {
     private Class<?> nbtTagCompound;
@@ -135,7 +133,7 @@ public class PlayerListener implements Listener {
                 if (part.toLowerCase().equals("{player}")) {
                     part = player.getName();
                 } else if (part.toLowerCase().equals("{attacker}")) {
-                    part = getAttacker(attacker);
+                    part = attacker == null ? "something" : attacker.getName();
                 } else if (part.toLowerCase().equals("{weapon}")) {
                     expandedComponents.add(getWeapon(componentPart, weapon));
                     expandedComponents.add(spaceComponent);
@@ -155,13 +153,6 @@ public class PlayerListener implements Listener {
         }
 
         event.setDeathMessage(null);
-    }
-
-    private String getAttacker(LivingEntity attacker) {
-        if (attacker == null) {
-            return "something";
-        }
-        return WordUtils.capitalize(attacker.getType().name().toLowerCase());
     }
 
     private BaseComponent getWeapon(BaseComponent component, ItemStack item) {

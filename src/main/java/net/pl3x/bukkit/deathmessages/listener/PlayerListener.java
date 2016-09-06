@@ -11,6 +11,7 @@ import net.pl3x.bukkit.deathmessages.Logger;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
 import net.pl3x.bukkit.deathmessages.configuration.Messages;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -133,7 +134,8 @@ public class PlayerListener implements Listener {
                 if (part.toLowerCase().equals("{player}")) {
                     part = player.getName();
                 } else if (part.toLowerCase().equals("{attacker}")) {
-                    part = attacker == null ? "something" : attacker.getName();
+                    part = attacker == null ? "something" : attacker instanceof Player ? attacker.getName() :
+                            WordUtils.capitalize(attacker.getType().name().toLowerCase().replace("_", " "));
                 } else if (part.toLowerCase().equals("{weapon}")) {
                     expandedComponents.add(getWeapon(componentPart, weapon));
                     expandedComponents.add(spaceComponent);

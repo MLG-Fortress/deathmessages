@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DeathMessages extends JavaPlugin {
+    private static boolean hasPl3xBot = false;
+
     @Override
     public void onEnable() {
         saveDefaultConfig();
@@ -17,6 +19,10 @@ public class DeathMessages extends JavaPlugin {
 
         Config.reload();
         Messages.getConfig().reload();
+
+        if (Bukkit.getPluginManager().isPluginEnabled("Pl3xBot")) {
+            hasPl3xBot = true;
+        }
 
         Bukkit.getPluginManager().registerEvents(new CombatListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
@@ -35,5 +41,9 @@ public class DeathMessages extends JavaPlugin {
 
     public static DeathMessages getPlugin() {
         return DeathMessages.getPlugin(DeathMessages.class);
+    }
+
+    public static boolean hasPl3xBot() {
+        return hasPl3xBot;
     }
 }

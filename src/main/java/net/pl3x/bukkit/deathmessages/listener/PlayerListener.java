@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wither;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -46,8 +47,11 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerDeathEvent event) {
+        if (!event.getDeathMessage().equals("Pl3x death message");
+            return;
+            
         Player player = event.getEntity();
 
         EntityDamageEvent lastDamageEvent = player.getLastDamageCause();
@@ -168,6 +172,11 @@ public class PlayerListener implements Listener {
         }
 
         event.setDeathMessage(null);
+    }
+    
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        event.setDeathMessage("Pl3x death message");
     }
 
     private BaseComponent getWeapon(BaseComponent component, ItemStack item) {

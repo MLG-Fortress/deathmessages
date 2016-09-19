@@ -4,10 +4,12 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.pl3x.bukkit.chatapi.ComponentSender;
+import net.pl3x.bukkit.deathmessages.DeathMessages;
 import net.pl3x.bukkit.deathmessages.Logger;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
 import net.pl3x.bukkit.deathmessages.configuration.Messages;
+import net.pl3x.bukkit.deathmessages.hook.Pl3xBotHook;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -157,6 +159,10 @@ public class PlayerListener implements Listener {
         components = expandedComponents.toArray(new BaseComponent[0]);
         for (Player online : Bukkit.getOnlinePlayers()) {
             ComponentSender.sendMessage(online, components);
+        }
+
+        if (DeathMessages.hasPl3xBot()) {
+            Pl3xBotHook.sendMessageToDiscord(TextComponent.toLegacyText(components));
         }
 
         event.setDeathMessage(null);

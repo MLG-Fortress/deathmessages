@@ -47,10 +47,16 @@ public class PlayerListener implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerPreparingForDeath(PlayerDeathEvent event) {
+        event.setDeathMessage("Pl3x death message");
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if (!event.getDeathMessage().equals("Pl3x death message");
-            return;
+        if (!event.getDeathMessage().equals("Pl3x death message")) {
+            return; // a plugin has changed the death message
+        }
             
         Player player = event.getEntity();
 
@@ -172,11 +178,6 @@ public class PlayerListener implements Listener {
         }
 
         event.setDeathMessage(null);
-    }
-    
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerPreparingForDeath(PlayerDeathEvent event) {
-        event.setDeathMessage("Pl3x death message");
     }
 
     private BaseComponent getWeapon(BaseComponent component, ItemStack item) {

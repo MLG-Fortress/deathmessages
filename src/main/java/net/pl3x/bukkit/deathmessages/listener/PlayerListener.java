@@ -96,6 +96,8 @@ public class PlayerListener implements Listener {
             message = Messages.getMessage("fire", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.VOID) {
             message = Messages.getMessage("void", world, combat != null);
+        } else if (lastCause == EntityDamageEvent.DamageCause.FLY_INTO_WALL) {
+            message = Messages.getMessage("fly-into-wall", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.POISON) {
             message = Messages.getMessage("poison", world, combat != null);
         } else if (lastCause == EntityDamageEvent.DamageCause.MAGIC) {

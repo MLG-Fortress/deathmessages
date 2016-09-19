@@ -91,6 +91,17 @@ fire:
         combat:
         - "{player} ran into fire trying to escape {attacker} in the nether"
 
+fly-into-wall:
+    default:
+    - "{player} face planted into a wall"
+    combat:
+    - "{player} was ran out of the sky by {attacker} with {weapon}"
+    world_nether:
+        default:
+        - "{player} face planted into a nether wall"
+        combat:
+        - "{player} was ran out of the nether sky by {attacker} with {weapon}"
+
 lava:
     default:
     - "{player} tried to swim in lava"

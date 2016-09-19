@@ -175,7 +175,7 @@ public class PlayerListener implements Listener {
     }
     
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerDeath(PlayerDeathEvent event) {
+    public void onPlayerPreparingForDeath(PlayerDeathEvent event) {
         event.setDeathMessage("Pl3x death message");
     }
 

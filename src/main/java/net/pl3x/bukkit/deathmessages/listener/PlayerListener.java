@@ -1,8 +1,5 @@
 package net.pl3x.bukkit.deathmessages.listener;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,6 +23,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerListener implements Listener {
     private Class<?> nbtTagCompound;
@@ -120,6 +121,10 @@ public class PlayerListener implements Listener {
         } else {
             // fallback to random default
             message = Messages.getMessage("default", null);
+        }
+
+        if (message == null || ChatColor.stripColor(message).isEmpty()) {
+            message = player.getName() + " has died.";
         }
 
         BaseComponent[] components = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&e" + message));

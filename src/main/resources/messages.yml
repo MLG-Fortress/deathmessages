@@ -1,5 +1,8 @@
 default:
-- "{player} has died"
+    default:
+    - "{player} has died"
+    combat:
+    - "{player} was killed"
 
 burn:
     default:

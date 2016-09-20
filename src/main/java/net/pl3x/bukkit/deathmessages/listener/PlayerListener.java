@@ -52,9 +52,10 @@ public class PlayerListener implements Listener {
         event.setDeathMessage("Pl3x death message");
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (!ChatColor.stripColor(event.getDeathMessage()).equals("Pl3x death message")) {
+            Logger.debug("Another plugin has changed the death message.");
             return; // a plugin has changed the death message
         }
 

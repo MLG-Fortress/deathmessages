@@ -139,7 +139,7 @@ public class PlayerListener implements Listener {
         }
 
         if (message == null || ChatColor.stripColor(message).isEmpty()) {
-            message = player.getName() + " has died.";
+            return; //User doesn't want a death message printed for this cause
         }
 
         BaseComponent[] components = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&e" + message));

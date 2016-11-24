@@ -7,6 +7,6 @@ public class Pl3xBotHook {
         if (message == null || message.isEmpty()) {
             return;
         }
-        Pl3xBot.sendToDiscord("*" + message + "*");
+        Pl3xBot.sendToDiscord("*" + message.trim() + "*");
     }
 }

@@ -145,28 +145,33 @@ public class PlayerListener implements Listener {
         BaseComponent[] components = TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&e" + message));
 
         List<BaseComponent> expandedComponents = new ArrayList<>();
-        BaseComponent spaceComponent = new TextComponent(" ");
         for (BaseComponent component : components) {
-            String text = ((TextComponent) component).getText();
-            for (String part : text.split(" ")) {
-                BaseComponent componentPart = component.duplicate();
+            String text = ((TextComponent) component).getText()
+                    .replace("{player}", player.getName())
+                    .replace("{attacker}", attacker == null ? "something"
+                            : attacker instanceof Player ? attacker.getName()
+                            : WordUtils.capitalize(attacker.getType().name().toLowerCase().replace("_", " ")));
 
-                if (part.toLowerCase().equals("{player}")) {
-                    part = player.getName();
-                } else if (part.toLowerCase().equals("{attacker}")) {
-                    part = attacker == null ? "something" : attacker instanceof Player ? attacker.getName() :
-                            WordUtils.capitalize(attacker.getType().name().toLowerCase().replace("_", " "));
-                } else if (part.toLowerCase().equals("{weapon}")) {
-                    expandedComponents.add(getWeapon(componentPart, weapon));
-                    expandedComponents.add(spaceComponent);
-                    continue;
+            if (text.toLowerCase().contains("{weapon}")) {
+                String[] parts = text.split("(?i)\\{weapon\\}");
+
+                BaseComponent componentPart1 = component.duplicate();
+                ((TextComponent) componentPart1).setText(parts[0]);
+                expandedComponents.add(componentPart1);
+
+                BaseComponent componentPart2 = getWeapon(component.duplicate(), weapon);
+                expandedComponents.add(componentPart2);
+
+                if (parts.length > 1) {
+                    BaseComponent componentPart3 = component.duplicate();
+                    ((TextComponent) componentPart3).setText(parts[1]);
+                    expandedComponents.add(componentPart3);
                 }
-
-                ((TextComponent) componentPart).setText(part);
-
-                expandedComponents.add(componentPart);
-                expandedComponents.add(spaceComponent);
+                continue;
             }
+
+            ((TextComponent) component).setText(text);
+            expandedComponents.add(component);
         }
 
         components = expandedComponents.toArray(new BaseComponent[0]);

@@ -10,7 +10,7 @@ import net.pl3x.bukkit.deathmessages.combat.Combat;
 import net.pl3x.bukkit.deathmessages.combat.CombatCache;
 import net.pl3x.bukkit.deathmessages.configuration.Messages;
 import net.pl3x.bukkit.deathmessages.hook.Pl3xBotHook;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

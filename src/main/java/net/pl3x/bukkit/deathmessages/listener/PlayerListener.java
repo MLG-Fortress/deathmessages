@@ -62,7 +62,7 @@ public class PlayerListener implements Listener {
         Player player = event.getEntity();
 
         EntityDamageEvent lastDamageEvent = player.getLastDamageCause();
-        EntityDamageEvent.DamageCause lastCause = lastDamageEvent.getCause();
+        EntityDamageEvent.DamageCause lastCause = lastDamageEvent == null ? null : lastDamageEvent.getCause();
         Combat combat = CombatCache.getCache().getCombat(player);
 
         String world = player.getWorld().getName();

@@ -3,7 +3,6 @@ package net.pl3x.bukkit.deathmessages.listener;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.pl3x.bukkit.chatapi.ComponentSender;
 import net.pl3x.bukkit.deathmessages.DeathMessages;
 import net.pl3x.bukkit.deathmessages.Logger;
 import net.pl3x.bukkit.deathmessages.combat.Combat;
@@ -176,7 +175,7 @@ public class PlayerListener implements Listener {
 
         components = expandedComponents.toArray(new BaseComponent[0]);
         for (Player online : Bukkit.getOnlinePlayers()) {
-            ComponentSender.sendMessage(online, components);
+            player.sendMessage(components);
         }
 
         if (DeathMessages.hasPl3xBot()) {

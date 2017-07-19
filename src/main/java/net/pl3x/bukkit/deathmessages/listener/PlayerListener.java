@@ -173,7 +173,7 @@ public class PlayerListener implements Listener {
 
         components = expandedComponents.toArray(new BaseComponent[0]);
         for (Player online : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(components);
+            online.sendMessage(components);
         }
 
         event.setDeathMessage(null);

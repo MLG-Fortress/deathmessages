@@ -12,7 +12,7 @@ public class Combat {
 
     public Combat(Player player, LivingEntity attacker) {
         this.attacker = attacker;
-        this.weapon = attacker.getEquipment().getItemInMainHand();
+        this.weapon = attacker.getEquipment().getItemInMainHand().clone();
         this.task = new CombatTask(player);
         task.runTaskLater(DeathMessages.getPlugin(), 100);
     }

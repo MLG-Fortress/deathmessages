@@ -169,14 +169,15 @@ public class PlayerListener implements Listener {
 
             ((TextComponent) component).setText(text);
             expandedComponents.add(component);
+            event.setDeathMessage(null);
+            if (combat != null)
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "communicationconnector " + text);
         }
 
         components = expandedComponents.toArray(new BaseComponent[0]);
         for (Player online : Bukkit.getOnlinePlayers()) {
             online.sendMessage(components);
         }
-
-        event.setDeathMessage(null);
     }
 
     private BaseComponent getWeapon(BaseComponent component, ItemStack item) {

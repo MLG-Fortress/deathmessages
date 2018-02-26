@@ -20,16 +20,8 @@
     </dependencies>
     <repositories>
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
             <id>paper-repo</id>
             <url>https://repo.destroystokyo.com/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <id>dwd-repo</id>
-            <url>http://ci.dwdg.net/plugin/repository/everything/</url>
         </repository>
     </repositories>
     <build>

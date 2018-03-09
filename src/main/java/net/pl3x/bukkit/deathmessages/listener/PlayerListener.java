@@ -171,7 +171,7 @@ public class PlayerListener implements Listener {
             expandedComponents.add(component);
             event.setDeathMessage(null);
             if (combat != null)
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "communicationconnector " + text);
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "communicationconnector " + ChatColor.YELLOW + text);
         }
 
         components = expandedComponents.toArray(new BaseComponent[0]);
